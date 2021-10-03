@@ -40,7 +40,7 @@ function parseMessage(message) {
 }
 
 function getChatItem(parsedMessage) {
-  return parsedMessage.type === 'chat' ? parsedMessage.payload : undefined;
+  return parsedMessage.type === 'chat' ? `${parsedMessage.nickname} : ${parsedMessage.payload}` : undefined;
 }
 
 function appendChatItem(chatItem) {
