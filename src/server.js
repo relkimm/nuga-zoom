@@ -1,3 +1,5 @@
+import http from 'http';
+import ws from 'ws';
 import express from 'express';
 
 const app = express();
@@ -5,10 +7,19 @@ app.set('view engine', 'pug');
 app.set('views', `${__dirname}/views`);
 
 app.use('/public', express.static(`${__dirname}/public`));
-app.get('/', (req, res) => {
+app.get('/', (_, res) => {
   res.render('home');
 });
 
-app.listen(3000, () => {
-  console.log('Server is running on Port 3000');
+app.get('/*', (_, res) => {
+  res.redirect('/');
 });
+
+const server = http.createServer(app);
+const wss = new ws.Server({ server });
+
+const onListen = () => {
+  console.log('Server is running on Port 3000');
+};
+
+server.listen(3000, onListen);
