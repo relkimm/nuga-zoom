@@ -10,8 +10,11 @@ html(lang="en")
     header
       h1 nuga-zoom
     main
-      ul(id="chat-list")
-      form(id="chat-form")
+      ul#chat-list
+      form#nick-form
+        input(id="nick-input" type="text" placeholder="write your nickname")
+        button(type="submit") Save
+      form#chat-form
         input(id="chat-input" type="text" placeholder="write a message" required)
         button(type="submit") Send
     script(src="/public/js/app.js")
