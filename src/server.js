@@ -17,8 +17,8 @@ const wss = new ws.Server({ server });
 wss.on("connection", (socket) => {
   console.log('Connected to Client!');
   socket.on('close', () => console.log('Disconnected from Client!'));
-  socket.on('message', (message) => console.log('message : ' + message));
-  socket.send('welcome to Chat server :)');
+  socket.on('message', (message) => socket.send(message.toString('utf8')));
 });
+
 
 server.listen(3000, () => console.log('Server is running on Port 3000'));

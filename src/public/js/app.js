@@ -5,6 +5,15 @@ socket.addEventListener('open', () => console.log('Connected to Server!'));
 socket.addEventListener('message', (message) => console.log(message.data));
 socket.addEventListener('close', () => console.log('Disconnected from Server!'));
 
-setTimeout(() => {
-  socket.send('hello from Client :)');
-}, 5000);
+const chatList = document.querySelector('#chat-list');
+const chatForm = document.querySelector('#chat-form');
+
+
+const onSubmit = (event) => {
+  event.preventDefault();
+  const input = document.querySelector('#chat-input');
+  socket.send(input.value);
+  input.value = '';
+}
+
+chatForm.addEventListener('submit', onSubmit);
