@@ -10,11 +10,9 @@ html(lang="en")
     header
       h1 nuga-zoom
     main
-      ul#chat-list
-      form#nick-form
-        input(id="nick-input" type="text" placeholder="write your nickname")
-        button(type="submit") Save
-      form#chat-form
-        input(id="chat-input" type="text" placeholder="write a message" required)
-        button(type="submit") Send
+      div#room
+        form
+          input(placeholder="room name", required)
+          button Enter Room
+    script(src="/socket.io/socket.io.js")
     script(src="/public/js/app.js")
