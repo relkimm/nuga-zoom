@@ -19,11 +19,11 @@ const server = http.createServer(app);
 const io = SocketIO(server);
 
 io.on('connection', socket => {
-  socket.on('enter_room', (message, done) => {
-    console.log('message : ', message);
-    setTimeout(() => {
-      done();
-    }, 1000);
+  socket.onAny(event => console.log(`event : ${event}`));
+  socket.on('enter_room', (message) => {
+    const { payload } = message;
+    socket.join(payload);
+    socket.emit('enter_success', { payload: 'success' });
   });
 });
 
