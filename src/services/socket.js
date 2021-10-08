@@ -1,3 +1,14 @@
+import ioService from './io';
+
+function init(socket) {
+  onAnyEvent(socket);
+  onEnterRoom(socket);
+  onLeftRoom(socket);
+  onDisconnect(socket);
+  onNickname(socket);
+  onNewChat(socket);
+}
+
 function onAnyEvent(socket) {
   socket.onAny(event => console.log(`event : ${event}`));
 }
@@ -8,6 +19,7 @@ function onEnterRoom(socket) {
     socket.join(roomName)
     socket.emit('enter_success');
     socket.to(roomName).emit('welcome', { nickname: socket.nickname });
+    ioService.emitRoomChange();
   });
 }
 
@@ -16,6 +28,12 @@ function onLeftRoom(socket) {
     socket.rooms.forEach(room => {
       socket.to(room).emit('bye', { nickname: socket.nickname });
     });
+  });
+}
+
+function onDisconnect(socket) {
+  socket.on('disconnect', _ => {
+    ioService.emitRoomChange();
   });
 }
 
@@ -36,9 +54,5 @@ function onNewChat(socket) {
 }
 
 export default {
-  onAnyEvent,
-  onEnterRoom,
-  onLeftRoom,
-  onNickname,
-  onNewChat,
+  init,
 };

@@ -65,4 +65,15 @@ socket.on('bye', message => {
   addChat(`${message.nickname} left!`);
 });
 
+socket.on('room-change', message => {
+  const roomList = welcome.querySelector('ul');
+  roomList.innerHTML = '';
+  
+  message.rooms.forEach(roomName => {
+    const room = document.createElement('li');
+    room.innerText = roomName;
+    roomList.append(room);
+  });
+});
+
 roomForm.addEventListener('submit', onEnterSubmit);

@@ -2,7 +2,7 @@ import http from 'http';
 import express from 'express';
 import SocketIO from 'socket.io';
 import loader from './loaders';
-import socketService from './services/socket';
+import ioService from './services/io';
 
 
 async function startHttpServer() {
@@ -14,16 +14,8 @@ async function startHttpServer() {
 }
 
 async function startWsServer(httpServer) {
-  const io = SocketIO(httpServer);
-  
-  io.on('connection', socket => {
-    socket.nickname = 'anonymous';
-    socketService.onAnyEvent(socket);
-    socketService.onEnterRoom(socket);
-    socketService.onLeftRoom(socket);
-    socketService.onNickname(socket);
-    socketService.onNewChat(socket);
-  });
+  const io = await SocketIO(httpServer);
+  ioService.init(io);
 }
 
 startHttpServer().then(httpServer => {
