@@ -17,9 +17,11 @@ async function startWsServer(httpServer) {
   const io = SocketIO(httpServer);
   
   io.on('connection', socket => {
+    socket.nickname = 'anonymous';
     socketService.onAnyEvent(socket);
     socketService.onEnterRoom(socket);
     socketService.onLeftRoom(socket);
+    socketService.onNickname(socket);
     socketService.onNewChat(socket);
   });
 }

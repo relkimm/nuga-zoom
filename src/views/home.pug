@@ -17,7 +17,10 @@ html(lang="en")
       div#room
         h3
         ul
-        form
+        form#nickname-form
+          input(placeholder="write nickname")
+          button Send
+        form#chat-form
           input(placeholder="write message" required)
           button Send
     script(src="/socket.io/socket.io.js")

@@ -3,7 +3,8 @@ const socket = io();
 const welcome = document.querySelector('#welcome');
 const roomForm = welcome.querySelector('form');
 const room = document.querySelector('#room');
-const chatForm = room.querySelector('form');
+const nicknameForm = room.querySelector('#nickname-form');
+const chatForm = room.querySelector('#chat-form');
 
 let roomName;
 room.hidden = true;
@@ -13,6 +14,9 @@ function showRoom() {
   room.hidden = false;
   const h3 = room.querySelector('h3');
   h3.innerText = `Room ${roomName}`;
+
+  nicknameForm.addEventListener('submit', onNicknameSubmit);
+  chatForm.addEventListener('submit', onChatSubmit);
 }
 
 function addChat(chat) {
@@ -31,6 +35,12 @@ function onEnterSubmit(event) {
   input.value = '';
 }
 
+function onNicknameSubmit(event) {
+  event.preventDefault();
+  const input = nicknameForm.querySelector('input');
+  socket.emit('nickname', { nickname: input.value });
+}
+
 function onChatSubmit(event) {
   event.preventDefault();
   const input = chatForm.querySelector('input');
@@ -40,21 +50,19 @@ function onChatSubmit(event) {
 }
 
 socket.on('new_chat', message => {
-  addChat(message.newChat);
+  addChat(`${message.nickname} : ${message.newChat}`);
 });
 
 socket.on('enter_success', _ => {
   showRoom();
 })
 
-socket.on('welcome', _ => {
-  addChat('someone joined!');
+socket.on('welcome', message => {
+  addChat(`${message.nickname} joined!`);
 });
 
-socket.on('bye', _ => {
-  addChat('someone left!');
+socket.on('bye', message => {
+  addChat(`${message.nickname} left!`);
 });
-
 
 roomForm.addEventListener('submit', onEnterSubmit);
-chatForm.addEventListener('submit', onChatSubmit);
