@@ -11,10 +11,7 @@ export const SERVER_PORT = process.env.SERVER_PORT;
 export const LOG_LEVEL = process.env.LOG_LEVEL;
 
 /* DB */
-export const DB_HOST = process.env.DB_HOST;
-export const DB_PORT = process.env.DB_PORT;
-export const DB_USERNAME = process.env.DB_USERNAME;
-export const DB_PASSPORT = process.env.DB_PASSPORT;
+export const MONGO_URI = process.env.MONGO_URI;
 
 /* View */
 export const VIEW_ENGINE = process.env.VIEW_ENGINE;
