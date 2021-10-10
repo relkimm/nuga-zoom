@@ -69,9 +69,11 @@ socket.on('room-change', message => {
   const roomList = welcome.querySelector('ul');
   roomList.innerHTML = '';
   
-  message.rooms.forEach(roomName => {
+  message.rooms.forEach(r => {
+    const { roomName, userCount } = r;
+
     const room = document.createElement('li');
-    room.innerText = roomName;
+    room.innerText = `${roomName} (${userCount})`;
     roomList.append(room);
   });
 });

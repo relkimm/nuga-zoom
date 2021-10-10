@@ -30,9 +30,9 @@ function getPublicRooms() {
 
   const { sids, rooms } = io.sockets.adapter;
   const publicRooms = [];
-  rooms.forEach((_, key) => {
+  rooms.forEach((value, key) => {
     if(sids.get(key) === undefined) {
-      publicRooms.push(key);
+      publicRooms.push({roomName: key, userCount: value.size });
     }
   });
   return publicRooms;
