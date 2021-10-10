@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/', validateCreateAccount, async (req, res) => {
   const accountCdo = new AccountCdo(req.body);
   await accountService.create(accountCdo);
-  return res.status(202);
+  return res.status(202).send();
 });
 
 export default router;

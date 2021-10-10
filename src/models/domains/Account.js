@@ -9,7 +9,6 @@ export default class Account {
 
   async hashPassword() {
     const hashedPassword = await bcrypt.hash(this.password, 12);
-    console.log('hashedPassword : ', hashedPassword);
     this.password = hashedPassword;
   }
 }
