@@ -15,6 +15,7 @@ export default async (app) => {
   }));
   app.use(logger(LOG_LEVEL));
   app.use('/public', express.static(path.join(ROOT_PATH, 'src', 'public')));
+  app.use(express.json());
   app.use(mainRouter);
   return app;
 }
