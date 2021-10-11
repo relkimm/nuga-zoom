@@ -4,6 +4,7 @@ import cors from 'cors';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
+import passport from 'passport';
 import { ROOT_PATH, LOG_LEVEL, COOKIE_KEY, SESSION_KEY, VIEW_ENGINE } from '../config';
 import mainRouter from '../routes';
 
@@ -30,6 +31,9 @@ export default async (app) => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   
+  app.use(passport.initialize());
+  app.use(passport.session());
+
   app.use(mainRouter);
   return app;
 }

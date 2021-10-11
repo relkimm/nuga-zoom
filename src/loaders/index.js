@@ -1,7 +1,9 @@
 import expressLoader from './express';
 import mongooseLoader from './mongoose';
+import passportLoader from './passport';
 
 export default async (app) => {
   await mongooseLoader();
-  expressLoader(app);
+  await expressLoader(app);
+  await passportLoader();
 }
