@@ -13,7 +13,11 @@ router.post('/', validateCreateAccount, async (req, res) => {
 });
 
 router.post('/login', passport.authenticate('local'), async (req, res) => {
-  console.log('session : ', req.session);
+  return res.send();
+});
+
+router.get('/logout', (req, res) => {
+  req.logout();
   return res.send();
 });
 

@@ -27,6 +27,7 @@ export default async () => {
   passport.serializeUser((user, done) => {
     done(null, user.username);
   });
+
   passport.deserializeUser(async (username, done) => {
     try {
       const user = await AccountModel.findOne({ username });  
